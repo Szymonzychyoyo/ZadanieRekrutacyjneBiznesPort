@@ -1,4 +1,5 @@
 # Uruchamianie projektu po zmianach //Szymon Zych
+Przed commitem inicjalizacyjnym zmieniłem to że frontend był w osobnym repozytorium co utrudniało poprawne wypychanie na zdalne repozytorium.
 
     ```bash
     docker compose up
