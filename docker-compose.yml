@@ -1,55 +1,70 @@
 services:
   phpmyadmin:
-    container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
     restart: always
     ports:
-      - 8081:80
-    networks:
-      - backend
-
-  db:
-    container_name: mysql
-    image: mysql:8.0
-    restart: always
+      - "8081:80"
     environment:
-      MYSQL_ROOT_PASSWORD: interview123
-    ports:
-      - "3306:3306"
-    networks:
-      - backend
-    volumes:
-      - db-vol:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-
-  backend:
-    container_name: backend_api
-    restart: always
-    build:
-      context: backend
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    networks:
-      - backend
+      PMA_HOST: mysql # zostawiamy jak było (phpMyAdmin łączy się po aliasie 'mysql')
+      PMA_USER: root
+      PMA_PASSWORD: interview123
+    networks: [backend]
     depends_on:
       - db
 
-  frontend:
-    container_name: next_frontend
-    restart: unless-stopped
-    build:
-      context: frontend
-      dockerfile: Dockerfile
+  db:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: interview123
+      MYSQL_DATABASE: interview
+    volumes:
+      - db-vol:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "3306:3306"
     networks:
-      - backend
+      backend:
+        aliases:
+          - mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-pinterview123"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: always
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8080:8080"
+    networks: [backend]
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    restart: always
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8080
     ports:
       - "3000:3000"
+    networks: [backend]
     depends_on:
       - backend
 
 networks:
-  backend:
+  backend: {}
 
 volumes:
-  db-vol:
+  db-vol: {}

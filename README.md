@@ -1,3 +1,12 @@
+# Uruchamianie projektu po zmianach //Szymon Zych
+
+    ```bash
+    docker compose up
+
+    //seedowanie
+    docker compose exec backend sh -lc "npx sequelize-cli db:seed:all"
+    ```
+
 # 🧩 Zadanie Rekrutacyjne – Aplikacja Wiadomości
 
 ## 🎯 Cel
