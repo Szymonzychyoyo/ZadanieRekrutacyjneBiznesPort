@@ -1,12 +1,12 @@
 # Uruchamianie projektu po zmianach //Szymon Zych
 Przed commitem inicjalizacyjnym zmieniłem to że frontend był w osobnym repozytorium co utrudniało poprawne wypychanie na zdalne repozytorium.
 
-    ```bash
-    docker compose up
+ ```bash
+ docker compose up
 
-    //seedowanie
-    docker compose exec backend sh -lc "npx sequelize-cli db:seed:all"
-    ```
+ //seedowanie
+ docker compose exec backend sh -lc "npx sequelize-cli db:seed:all"
+ ```
 
 # 🧩 Zadanie Rekrutacyjne – Aplikacja Wiadomości
 
