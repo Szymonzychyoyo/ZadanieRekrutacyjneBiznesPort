@@ -1,0 +1,29 @@
+{
+  "development": {
+    "username": "root",
+    "password": "interview123",
+    "database": "interview",
+    "host": "mysql",
+    "port": 3306,
+    "dialect": "mysql",
+    "logging": false
+  },
+  "test": {
+    "username": "root",
+    "password": "interview123",
+    "database": "interview_test",
+    "host": "mysql",
+    "port": 3306,
+    "dialect": "mysql",
+    "logging": false
+  },
+  "production": {
+    "username": "root",
+    "password": "interview123",
+    "database": "interview",
+    "host": "mysql",
+    "port": 3306,
+    "dialect": "mysql",
+    "logging": false
+  }
+}
