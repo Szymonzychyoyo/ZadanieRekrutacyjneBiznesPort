@@ -7,8 +7,11 @@ W celu uruchomienia wystarczy wpisać
 
 ```
 
-W poprzedniej wersji seedowanie odbywało się poprzez wpisanie po docker compose up
-docker compose exec backend sh -lc "npx sequelize-cli db:seed:all"
+W poprzedniej wersji seedowanie odbywało się poprzez wpisanie po "docker compose up"
+
+komendy
+
+"docker compose exec backend sh -lc "npx sequelize-cli db:seed:all"
 
 jeżeli chcemy wygenerowac wiecej sztucznych wiadomości wystarczy ponownie wpisac te komende, ale teraz te sztuczne dane ładują się już przy uruchomieniu docker compose up
 
